@@ -1,0 +1,68 @@
+<p-toast></p-toast>
+<div class="ui-g">
+  <div class="ui-g-12">
+    <p-panel header="Organizações">
+
+      <form [formGroup]="formOrganization">
+        <div class="ui-g">
+          <div class="ui-g-4">
+            <label>Nome</label>
+            <input type="text" pInputText style="width: 100%" formControlName="name">
+          </div>
+
+          <div class="ui-g-2">
+              <label>Ativo</label><br>
+              <p-selectButton [options]="status" formControlName="active"></p-selectButton>
+          </div>
+
+          <div class="ui-g-1">
+            <button type="button" pButton label="Adicionar" icon="pi pi-save" (click)="save()"
+            style="margin-top: 18px" [disabled]="formOrganization.invalid"></button>
+          </div>
+        </div>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <p-table #table [value]="organizations" [globalFilterFields]="['name','active']">
+                <ng-template pTemplate="caption">
+                    <div style="text-align: right">        
+                        <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Pesquisa..." (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Nome</th>
+                  <th style="width: 100px">Status</th>
+                  <th style="width: 90px">Ações</th>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="body" let-org>
+                <tr>
+                  <td>{{ org.name }}</td>
+                  <td style="text-align: center">{{ org.active ? 'Ativa' : 'Inativa' }}</td>
+                  <td style="text-align: center">
+                    <a (click)="edit(org)"><i style="font-size: 1.9em" class="pi pi-pencil"></i></a>
+                    <a (click)="delete(org)"><i style="font-size: 1.9em" class="pi pi-trash"></i></a>
+                  </td>
+                </tr>
+              </ng-template>
+
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="3">
+                    Nenhum registro encontrado.
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+
+        <p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+
+      </form>
+    </p-panel>
+  </div>
+</div>
