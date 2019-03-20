@@ -1,0 +1,116 @@
+<p-toast></p-toast>
+<div class="ui-g">
+  <div class="ui-g-12">
+    <form [formGroup]="formQuestion">
+      <p-panel>
+
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title titulo-panel">Cadastrar Questão</span>
+            <a class="link-lista">Listar Questões</a>
+          </div>
+        </p-header>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <label>Prova</label><br>
+            <p-autoComplete [suggestions]="certifications" (completeMethod)="filterCertifications($event?.query)" field="name" size="100"
+             placeholder="Digite o nome da certificação..." [minLength]="2"
+             formControlName="certification"></p-autoComplete>
+          </div>
+        </div>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <label>Número</label><br>
+            <input pInputText formControlName="number">
+          </div>
+        </div>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <label>Enunciado</label>
+            <p-editor [style]="{'height':'320px'}" formControlName="statementQuestion"></p-editor>
+          </div>
+        </div>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <label>Respostas</label><br><br>
+            <button type="button" pButton label="Adicionar" (click)="openDialogStatement()"></button>
+          </div>
+        </div>
+
+        <div class="ui-g">
+          <div class="ui-g-4">
+            <p-table [value]="statements">
+              <ng-template pTemplate="header">
+                <tr>
+                  <th>Item</th>
+                  <th>Opções</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-statement>
+                <tr [ngClass]="{'correct': statement.correct}">
+                  <td style="text-align: center">{{statement.item}}</td>
+                  <td style="text-align: center">
+                    <a><i style="font-size: 1.9em" class="pi pi-pencil" (click)="editStatemet(statement)"></i></a>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="emptymessage">
+                <tr>
+                  <td colspan="2">
+                    Nenhum enunciado encontrado.
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+
+
+        <p-footer>
+          <div class="ui-g">
+            <button pButton label="Salvar" icon="pi pi-save" (click)="save()"></button>
+          </div>
+        </p-footer>
+
+
+      </p-panel>
+
+
+      <p-dialog header="Enunciado" [(visible)]="openDialog" [modal]="true" [responsive]="true"
+        [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+        <div [formGroup]="formStatement">
+
+          <div class="ui-g">
+              <div class="ui-g-2"><p-radioButton name="item" label="A" value="A" formControlName="item"></p-radioButton></div>
+              <div class="ui-g-2"><p-radioButton name="item" label="B" value="B" formControlName="item"></p-radioButton></div>
+              <div class="ui-g-2"><p-radioButton name="item" label="C" value="C" formControlName="item"></p-radioButton></div>
+              <div class="ui-g-2"><p-radioButton name="item" label="D" value="D" formControlName="item"></p-radioButton></div>
+              <div class="ui-g-2"><p-radioButton name="item" label="E" value="E" formControlName="item"></p-radioButton></div>
+              <div class="ui-g-2"><p-radioButton name="item" label="F" value="F" formControlName="item"></p-radioButton></div>
+              
+          </div>
+
+          <div class="ui-g-12">
+              <p-checkbox formControlName="correct" binary="true"></p-checkbox> <label style="font-weight: bold; margin-left: 5px">Correta?</label>
+          </div>
+          
+          <br><br>
+
+          <textarea [rows]="10" [cols]="50" pInputTextarea formControlName="description"></textarea>
+
+          <br>
+
+          <p-footer>
+            <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="openDialog=false" label="Ok"
+              (click)="addStatement()" style="margin-top: 10px"></button>
+          </p-footer>
+        </div>
+
+      </p-dialog>
+    </form>
+  </div>
+</div>

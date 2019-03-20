@@ -1,0 +1,45 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <form>
+      <p-panel>
+
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title titulo-panel">Histórico</span>
+          </div>
+        </p-header>
+
+        <div class="ui-g">
+            <div class="ui-g-12">
+              <p-table [value]="historic">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Exame</th>
+                    <th>Data</th>
+                    <th>Tempo</th>
+                    <th>Porcentagem</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-historic>
+                  <tr>
+                    <td>{{historic.exam}}</td>
+                    <td style="text-align: center">{{historic.date}}</td>
+                    <td style="text-align: center">{{historic.time}}</td>
+                    <td style="text-align: center">{{historic.percentage}}</td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr>
+                    <td colspan="4">
+                      Nenhuma certificação encontrada.
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+
+      </p-panel>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <form>
+      <p-panel header="Criar conta">
+        <div class="ui-g">
+          <div class="ui-g-4">
+            <label class="required">Nome</label>
+            <input type="text" pInputText style="width: 100%" placeholder="Digite seu nome...">
+          </div>
+
+          <div class="ui-g-4">
+            <label class="required">E-mail</label>
+            <input type="text" pInputText style="width: 100%" placeholder="Digite seu e-mail...">
+          </div>
+        </div>
+
+        <div class="ui-g">
+          <div class="ui-g-4">
+            <label class="required">Senha</label>
+            <input type="text" pInputText style="width: 100%" placeholder="Digite seu senha...">
+          </div>
+
+          <div class="ui-g-4">
+            <label class="required">Confirmar senha</label>
+            <input type="text" pInputText style="width: 100%" placeholder="Confirme sua senha...">
+          </div>
+        </div>
+
+        <p-footer>
+          <div class="ui-g">
+            <button pButton label="Salvar" icon="pi pi-save"></button>
+            <button pButton label="Retornar" icon="pi pi-arrow-left" style="margin-left: 8px"
+            class="ui-button-warning" [routerLink]="['/login']"></button>
+          </div>
+        </p-footer>
+
+      </p-panel>
+    </form>
+  </div>
+</div>

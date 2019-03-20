@@ -1,0 +1,14 @@
+.statement {
+    font-weight: bold;
+}
+
+.titulo-panel {
+    font-size:16px;
+    display:inline-block;
+    margin-top:2px
+}
+
+.tempo {
+    float: right;
+    font-weight: bold;
+}

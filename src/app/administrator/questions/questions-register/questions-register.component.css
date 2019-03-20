@@ -11,4 +11,8 @@
 
 .link-lista:hover {
     cursor: pointer;
-}  
+}
+
+.correct {
+    background-color: #cecece !important;
+}

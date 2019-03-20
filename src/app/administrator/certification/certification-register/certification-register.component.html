@@ -1,9 +1,16 @@
 <p-toast></p-toast>
 <div class="ui-g">
   <div class="ui-g-12">
-    <p-panel header="Organizações">
+    <form [formGroup]="formCertification">
+      <p-panel>
 
-      <form [formGroup]="formCertification">
+        <p-header>
+            <div class="ui-helper-clearfix">
+                <span class="ui-panel-title titulo-panel">Cadastrar Certificação</span>
+                <a class="link-lista" [routerLink]="['/admin/listing']">Listar Certificações</a>
+            </div>
+        </p-header>
+
         <div class="ui-g">
           <div class="ui-g-4">
             <label class="required">Nome</label>
@@ -17,8 +24,8 @@
 
           <div class="ui-g-4">
             <label class="required">Organizador</label><br>
-            <p-dropdown [options]="organizations" [style]="{'width':'100%'}" optionLabel="name" [filter]="true"
-            formControlName="organization"></p-dropdown>
+            <p-dropdown [options]="organizations" [style]="{'width':'100%'}" placeholder="Selecione" optionLabel="name"
+              [filter]="true" formControlName="organization"></p-dropdown>
           </div>
 
         </div>
@@ -31,8 +38,8 @@
             </div>
 
             <div class="ui-g-1">
-              <button pButton label="Adicionar" icon="pi pi-save" style="margin-top: 18px"
-                (click)="addDetail()" [disabled]="disableAddButton"></button>
+              <button pButton label="Adicionar" icon="pi pi-save" style="margin-top: 18px" (click)="addDetail()"
+                [disabled]="disableAddButton"></button>
             </div>
           </div>
 
@@ -67,13 +74,15 @@
 
         <br /><br />
 
-        <div class="ui-g">
-          <button pButton label="Salvar" icon="pi pi-save" (click)="save()" [disabled]="formCertification.invalid"></button>
-        </div>
+        <p-footer>
+          <div class="ui-g">
+            <button pButton label="Salvar" icon="pi pi-save" (click)="save()"
+              [disabled]="formCertification.invalid"></button>
+          </div>
+        </p-footer>
 
-        <p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
-
-      </form>
-    </p-panel>
+      </p-panel>
+      <p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+    </form>
   </div>
 </div>

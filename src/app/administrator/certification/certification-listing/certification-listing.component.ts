@@ -7,6 +7,10 @@ import { CertificationService } from '../certification.service';
 import { Certification } from 'src/app/model/certification.model';
 import { Detail } from 'src/app/model/detail.model';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/security/auth.service';
+import { LogoutService } from 'src/app/security/logout.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-certification-listing',
@@ -27,7 +31,11 @@ export class CertificationListingComponent implements OnInit {
     private certificationService: CertificationService,
     private formBuilder: FormBuilder,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) {
+    private messageService: MessageService,
+    private auth: AuthService,
+    private logoutService: LogoutService,
+    private errorHandler: ErrorHandlerService,
+    private router: Router) {
 
     this.buildFormFilter();
   }
@@ -77,10 +85,18 @@ export class CertificationListingComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
         this.certificationService.delete(certification.id).subscribe(res => {
-          this.search();
           this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Removido com sucesso!' });
+          this.search();
         });
       }
     });
+  }
+
+  logout() {
+    this.logoutService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+      .catch(erro => this.errorHandler.handle(erro));
   }
 }

@@ -1,0 +1,11 @@
+<nav>
+  <ul>
+    <li class="title">E-Certification</li>
+    <li *ngIf="auth.hasPermission('ROLE_CRUD_ORGANIZATION')"><a routerLinkActive="active" [routerLink]="['/admin/org']">Organizações</a></li>
+    <li><a routerLinkActive="active" [routerLink]="['/admin/listing']">Certificações</a></li>
+    <li *ngIf="auth.hasPermission('ROLE_SAVE_QUESTION')"><a routerLinkActive="active" [routerLink]="['/admin/question-register']">Questionário</a></li>
+    <li *ngIf="auth.hasPermission('ROLE_LIST_HISTORIC')"><a routerLinkActive="active" [routerLink]="['/user/historic']">Histórico</a></li>
+    <li><a (click)="logout()">Logout</a></li>
+    <li class="user">Bem-vindo {{ auth.jwtPayload?.name }}!</li>
+  </ul>
+</nav>

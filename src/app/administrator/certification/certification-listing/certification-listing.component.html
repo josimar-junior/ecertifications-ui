@@ -1,9 +1,15 @@
 <p-toast></p-toast>
 <div class="ui-g">
   <div class="ui-g-12">
-    <p-panel header="Certificações">
+    <form [formGroup]="formFilter">
+      <p-panel>
 
-      <form [formGroup]="formFilter">
+          <p-header>
+              <div class="ui-helper-clearfix">
+                  <span class="ui-panel-title titulo-panel">Certificações</span>
+                  <a class="link-lista" *ngIf="auth.hasPermission('ROLE_SAVE_CERTIFICATION')" [routerLink]="['/admin/register']">Cadastrar Certificação</a>
+              </div>
+          </p-header>
 
         <div class="ui-g">
           <div class="ui-g-3">
@@ -18,8 +24,8 @@
 
           <div class="ui-g-3">
             <label>Organizador</label><br>
-            <p-dropdown [options]="organizations" [style]="{'width':'100%'}" optionLabel="name" [filter]="true"
-              formControlName="organization"></p-dropdown>
+            <p-dropdown [options]="organizations" [style]="{'width':'100%'}" placeholder="Selecione" optionLabel="name"
+              [filter]="true" formControlName="organization"></p-dropdown>
           </div>
 
           <div class="ui-g-2" style="padding-top: 25px">
@@ -35,7 +41,7 @@
                   <th>Nome</th>
                   <th>Exame</th>
                   <th style="width: 90px">Detalhes</th>
-                  <th style="width: 90px">Ações</th>
+                  <th style="width: 110px">Ações</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-certification>
@@ -46,9 +52,11 @@
                     <a (click)="searchDetails(certification)"><i style="font-size: 1.9em"
                         class="pi pi-info-circle"></i></a>
                   </td>
-                  <td style="width: 90px; text-align: center">
-                    <a [routerLink]="['/register', certification.id]"><i style="font-size: 1.9em" class="pi pi-pencil"></i></a>
-                    <a (click)="delete(certification)"><i style="font-size: 1.9em" class="pi pi-trash"></i></a>
+                  <td style="width: 110px; text-align: center">
+                    <a *ngIf="auth.hasPermission('ROLE_EDIT_CERTIFICATION')" [routerLink]="['/admin/register', certification.id]"><i style="font-size: 1.9em"
+                        class="pi pi-pencil"></i></a>
+                    <a *ngIf="auth.hasPermission('ROLE_DELETE_CERTIFICATION')" (click)="delete(certification)"><i style="font-size: 1.9em" class="pi pi-trash"></i></a>
+                    <a [routerLink]="['/user/quiz', certification.id]"><i style="font-size: 1.9em" class="pi pi-file"></i></a>
                   </td>
                 </tr>
               </ng-template>
@@ -63,17 +71,15 @@
           </div>
         </div>
 
-        <p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
-
-      </form>
-
-    </p-panel>
+      </p-panel>
+      <p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
+    </form>
   </div>
 </div>
 
 <p-dialog header="Detalhes - {{ examDialog }}" [(visible)]="openDialogDetails" [modal]="true" [responsive]="true"
   [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
-  
+
   <ul>
     <li *ngFor="let detail of details">
       {{ detail.description }}
@@ -81,6 +87,7 @@
   </ul>
 
   <p-footer>
-    <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="openDialogDetails=false" label="Ok"></button>
+    <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="openDialogDetails=false"
+      label="Ok"></button>
   </p-footer>
 </p-dialog>

@@ -6,8 +6,8 @@ import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { ROUTES } from './app.routes';
-import { MessageService } from 'primeng/components/common/messageservice';
-import { ConfirmationService } from 'primeng/api';
+import { CoreModule } from './core/core.module';
+import { SecurityModule } from './security/security.module';
 
 @NgModule({
   declarations: [
@@ -18,10 +18,13 @@ import { ConfirmationService } from 'primeng/api';
     BrowserAnimationsModule,
     HttpClientModule,
 
+    CoreModule,
+    SecurityModule,
+
     RouterModule.forRoot(ROUTES)
 
   ],
-  providers: [MessageService, ConfirmationService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,6 +7,7 @@ export class Certification {
     exam: string;
     details: Array<Detail>;
     organization: Organization;
+    description: string;
 
     constructor(init?: Partial<Certification>) {
         Object.assign(this, init);

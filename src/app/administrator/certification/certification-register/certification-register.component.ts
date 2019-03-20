@@ -81,13 +81,13 @@ export class CertificationRegisterComponent implements OnInit {
   }
 
   save() {
-    if (!this.formCertification.get('organization').value)
-      this.formCertification.get('organization').setValue(this.organizations[0]);
-
+    debugger
     this.formCertification.get('details').setValue(this.details);
 
     const certification = new Certification(this.formCertification.value);
     
+    delete certification.description;
+
     if (certification.id) {
 
       this.certificationService.update(certification).subscribe(res => {

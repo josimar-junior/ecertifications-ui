@@ -1,0 +1,14 @@
+.titulo-panel {
+    font-size:16px;
+    display:inline-block;
+    margin-top:2px
+}
+
+.link-lista {
+    float: right; 
+    text-decoration: underline;
+}
+
+.link-lista:hover {
+    cursor: pointer;
+}

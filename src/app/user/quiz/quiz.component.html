@@ -1,0 +1,122 @@
+<div class="ui-g">
+  <div class="ui-g-12">
+    <form>
+      <p-panel>
+
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title titulo-panel">Prova - {{certficationName}}</span>
+            <label class="tempo">Tempo: 00:05:13</label>
+          </div>
+        </p-header>
+
+        <div *ngFor="let question of questions">
+          <div [innerHTML]="question.statementQuestion"></div>
+          <br>
+          <div *ngIf="hasMultipleChoice(question.statements), else onlyChoice">
+              <div *ngFor="let sta of question.statements">
+                  <p-checkbox name="state" value="{{sta.item}}" label="{{sta.description}}" (onChange)="clickCheckbox(question.number, sta.item, $event)"></p-checkbox>
+              </div>
+          </div>
+          
+          <ng-template #onlyChoice>
+              <div *ngFor="let sta of question.statements">
+                  <p-radioButton name="item" label="{{sta.description}}" value="{{sta.item}}" (onClick)="clickRadio(question.number, sta.item)"></p-radioButton>
+              </div>
+          </ng-template>
+          
+          <br>
+          <hr>
+          <br>
+        </div>
+
+        <p-footer>
+            <button type="button" pButton icon="pi pi-check" iconPos="left" label="Finalizar"
+               style="margin-top: 10px" (click)="finalizar()"></button>
+        </p-footer>
+
+      </p-panel>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--<div class="ui-g">
+  <div class="ui-g-12">
+    <form>
+      <p-panel>
+
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title titulo-panel">Prova - Java SE 8 Programmer I</span>
+            <label class="tempo">Tempo: 00:05:13</label>
+          </div>
+        </p-header>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <label class="statement">1) Given:</label>
+          </div>
+          <div class="ui-g-12">
+            <pre>
+                import java.util.ArrayList;
+                import java.util.List;
+                
+                public class JavaSETest {{ '{' }}
+                  public static void main(String[] args) {{ '{' }}
+                    List{{ '<' }} Integer {{ '>' }} elements = new ArrayList<>();
+                    elements.add(10);
+                    int firstElmnt = elements.get(1);
+                    System.out.println(firstElmnt);
+                    {{ '}' }}
+                {{ '}' }}
+              </pre>
+          </div>
+          <div class="ui-g-12">
+            <label>What is the result?</label>
+          </div>
+          <div class="ui-g-12">
+            <p-radioButton name="item" label="A) null" value="A"></p-radioButton><br><br>
+            <p-radioButton name="item" label="B) 10" value="B"></p-radioButton><br><br>
+            <p-radioButton name="item" label="C) 0" value="C"></p-radioButton><br><br>
+            <p-radioButton name="item" label="D) An IndexOutOfBoundsException is thrown at runtime." value="D">
+            </p-radioButton>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="ui-g">
+          <div class="ui-g-12">
+            <label class="statement">2) Which access modifier makes a member available only to classes within the same
+              package or
+              subclasses?</label>
+          </div>
+
+          <div class="ui-g-12">
+            <p-radioButton name="item" label="A) private" value="A"></p-radioButton><br><br>
+            <p-radioButton name="item" label="B) protected" value="B"></p-radioButton><br><br>
+            <p-radioButton name="item" label="C) public" value="C"></p-radioButton><br><br>
+            <p-radioButton name="item" label="D) package-private " value="D"></p-radioButton>
+          </div>
+        </div>
+
+        <p-footer>
+          <div class="ui-g">
+            <button pButton label="Finalizar" icon="pi pi-save"></button>
+          </div>
+        </p-footer>
+
+      </p-panel>
+    </form>
+  </div>
+</div>-->

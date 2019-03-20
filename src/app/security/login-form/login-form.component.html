@@ -1,0 +1,32 @@
+<p-toast></p-toast>
+<div class="login">
+
+  <form autocomplete="off" [formGroup]="loginForm">
+
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-12">
+        <h1>Login</h1>
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label for="email" class="required">E-mail</label>
+        <input pInputText type="text" id="email" name="email" placeholder="Digite seu email"
+        formControlName="email">
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <label for="password" class="required">Senha</label>
+        <input pInputText type="password" id="password" name="password" placeholder="Digite sua senha"
+        formControlName="password">
+      </div>
+
+      <div class="ui-g-12 ui-fluid">
+        <p-button label="Login" icon="pi pi-sign-in" iconPos="left" (onClick)="login()"
+        [disabled]="loginForm.invalid"></p-button>
+        <a [routerLink]="['/public']" style="margin-left:50px">Criar conta</a>
+      </div>
+
+    </div>
+
+  </form>
+</div>
