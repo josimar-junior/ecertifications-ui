@@ -7,6 +7,7 @@ import { CertificationHttp } from '../security/certification-http';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { RouterModule } from '@angular/router';
+import { FormatTimePipe } from './time-pipe';
 
 @NgModule({
   imports: [
@@ -15,11 +16,13 @@ import { RouterModule } from '@angular/router';
   ],
   declarations: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    FormatTimePipe
   ],
   exports: [
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    FormatTimePipe
   ],
   providers: [
     ErrorHandlerService,

@@ -52,6 +52,7 @@ export class CertificationRegisterComponent implements OnInit {
       name: [null, Validators.required],
       exam: [null, Validators.required],
       organization: [null, Validators.required],
+      percentage: [null, Validators.required],
       description: [],
       details: []
     });

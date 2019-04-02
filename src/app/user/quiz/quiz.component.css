@@ -2,13 +2,19 @@
     font-weight: bold;
 }
 
-.titulo-panel {
+.title-panel {
     font-size:16px;
     display:inline-block;
     margin-top:2px
 }
 
-.tempo {
+.time {
     float: right;
     font-weight: bold;
+    padding-top: 7px;
+}
+
+.button-init {
+    float: right;
+    margin-right: 3%;
 }

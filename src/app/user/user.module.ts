@@ -10,7 +10,10 @@ import { AuthGuard } from '../security/auth.guard';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { HistoricComponent } from './historic/historic.component';
 import { TableModule } from 'primeng/table';
-import { CheckboxModule } from 'primeng/checkbox';
+import { CheckboxModule } from 'primeng/checkbox'
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
+import { CoreModule } from '../core/core.module';
 
 const ROUTES: Routes = [
   { path: 'quiz/:id', component: QuizComponent, canActivate: [AuthGuard] },
@@ -27,7 +30,10 @@ const ROUTES: Routes = [
     ButtonModule,
     RadioButtonModule,
     TableModule,
-    CheckboxModule
+    CheckboxModule,
+    ConfirmDialogModule,
+    DialogModule,
+    CoreModule
   ],
   declarations: [QuizComponent, HistoricComponent]
 })

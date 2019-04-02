@@ -1,4 +1,4 @@
 export class Answer {
-    question: number;
+    question: string;
     items: any[] = [];
 }

@@ -71,7 +71,6 @@ export class QuestionsRegisterComponent implements OnInit {
   addStatement() {
     const statement = new Statement(this.formStatement.value);
     this.statements.push(statement);
-    console.log(this.statements);
   }
 
   editStatemet(statement: Statement) {
@@ -80,8 +79,8 @@ export class QuestionsRegisterComponent implements OnInit {
   }
 
   save() {
+    this.statements.sort((x, y) => x.item < y.item ? -1 : 1);
     this.formQuestion.get('statements').setValue(this.statements);
-    console.log(this.formQuestion.getRawValue());
     const question = new Question(this.formQuestion.getRawValue());
     this.questionService.save(question)
       .subscribe(() => {

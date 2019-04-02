@@ -8,6 +8,7 @@ export class Certification {
     details: Array<Detail>;
     organization: Organization;
     description: string;
+    percentage: number;
 
     constructor(init?: Partial<Certification>) {
         Object.assign(this, init);

@@ -5,8 +5,10 @@
 
         <p-header>
           <div class="ui-helper-clearfix">
-            <span class="ui-panel-title titulo-panel">Prova - {{certficationName}}</span>
-            <label class="tempo">Tempo: 00:05:13</label>
+            <span class="ui-panel-title title-panel">Prova - {{certification?.name}}</span>
+            <label #timeRef class="time">Tempo: {{time | async | formatTime}}</label>
+            <button type="button" class="ui-button-success button-init" pButton icon="pi pi-clock" iconPos="left"
+              label="Iniciar" (click)="init = true; initTest()" [disabled]="init"></button>
           </div>
         </p-header>
 
@@ -14,28 +16,60 @@
           <div [innerHTML]="question.statementQuestion"></div>
           <br>
           <div *ngIf="hasMultipleChoice(question.statements), else onlyChoice">
-              <div *ngFor="let sta of question.statements">
-                  <p-checkbox name="state" value="{{sta.item}}" label="{{sta.description}}" (onChange)="clickCheckbox(question.number, sta.item, $event)"></p-checkbox>
-              </div>
+            <div *ngFor="let sta of question.statements">
+              <p-checkbox name="state" [disabled]="!init" value="{{sta.item}}" label="{{sta.description}}"
+                (onChange)="clickCheckbox(question.number, sta.item, $event)"></p-checkbox>
+            </div>
           </div>
-          
+
           <ng-template #onlyChoice>
-              <div *ngFor="let sta of question.statements">
-                  <p-radioButton name="item" label="{{sta.description}}" value="{{sta.item}}" (onClick)="clickRadio(question.number, sta.item)"></p-radioButton>
-              </div>
+            <div *ngFor="let sta of question.statements">
+              <p-radioButton name="item" [disabled]="!init" label="{{sta.description}}" value="{{sta.item}}"
+                (onClick)="clickRadio(question.number, sta.item)"></p-radioButton>
+            </div>
           </ng-template>
-          
+
           <br>
           <hr>
           <br>
         </div>
 
         <p-footer>
-            <button type="button" pButton icon="pi pi-check" iconPos="left" label="Finalizar"
-               style="margin-top: 10px" (click)="finalizar()"></button>
+          <button type="button" pButton icon="pi pi-check" iconPos="left" label="Finalizar" style="margin-top: 10px"
+            (click)="finalizeTest()" [disabled]="!init"></button>
         </p-footer>
 
       </p-panel>
+
+      <p-confirmDialog acceptLabel="Sim" rejectLabel="Não"></p-confirmDialog>
     </form>
   </div>
 </div>
+
+<p-dialog header="Resultado" [(visible)]="openDialogResult" *ngIf="openDialogResult" [modal]="true" [responsive]="true"
+  [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+
+  <div *ngIf="approved; else disapproved" class="ui-g-12">
+    <div style="text-align: center">
+      <span style="color: green; font-weight: bold; font-size: 23px">Aprovado</span>
+    </div>
+    Parabéns! Sua porcentagem foi de {{percentage}}% e a porcentagem mínima para essa prova é de
+    {{certification.percentage}}%.
+  </div>
+
+  <ng-template #disapproved>
+    <div class="ui-g-12">
+      <div style="text-align: center">
+        <span style="color: red; text-align: center; font-weight: bold; font-size: 23px">Reprovado</span>
+      </div>
+    </div>
+    Sua porcentagem foi de {{percentage}}% e a porcentagem mínima para essa prova é de {{certification.percentage}}%.
+    Estude mais um pouco e refaça o teste.
+  </ng-template>
+
+
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" iconPos="left" (click)="historic()"
+      label="Ok"></button>
+  </p-footer>
+</p-dialog>
