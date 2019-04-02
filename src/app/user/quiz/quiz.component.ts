@@ -13,6 +13,8 @@ import { Historic } from 'src/app/model/historic.model';
 import { Certification } from 'src/app/model/certification.model';
 import { HistoricService } from '../historic.service';
 import { ConfirmationService } from 'primeng/api';
+import { UserResponse } from 'src/app/model/user-response.model';
+import { UserResponseService } from '../user-response.service';
 
 @Component({
   selector: 'app-quiz',
@@ -41,7 +43,8 @@ export class QuizComponent implements OnInit {
     private formBuilder: FormBuilder,
     private historicService: HistoricService,
     private confirmationService: ConfirmationService,
-    private router: Router) {
+    private router: Router,
+    private userResponseService: UserResponseService) {
     this.buildFormQuiz();
   }
 
@@ -137,10 +140,29 @@ export class QuizComponent implements OnInit {
     const time = this.timeRef.nativeElement.innerText.substring(7);
     let historic: Historic = new Historic(this.certification, time, this.percentage);
 
-    this.historicService.save(historic)
-      .subscribe(() => {
-        this.openDialogResult = true;
-      })
+    console.log(this.answers);
+
+    let usersResponse: UserResponse[] = [];
+
+    this.answers.forEach(ans => {
+      const items: string = ans.items.toString();
+      let userResponse: UserResponse = new UserResponse();
+      userResponse.certification = this.certification;
+      userResponse.questionNumber = ans.question;
+      userResponse.items = items;
+      usersResponse.push(userResponse);
+    });
+
+    console.log(usersResponse);
+    
+    this.userResponseService.save(usersResponse).subscribe(() => {
+      console.log('OK');
+      
+    });
+    // this.historicService.save(historic)
+    //   .subscribe(() => {
+    //     this.openDialogResult = true;
+    //   });
   }
 
   get approved(): boolean {
