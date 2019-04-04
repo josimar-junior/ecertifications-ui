@@ -1,0 +1,45 @@
+<div class="ui-g" *ngIf="userResponses.length > 0">
+  <div class="ui-g-12">
+    <form>
+      <p-panel>
+
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <span class="ui-panel-title title-panel">Resultado - {{certification?.name}}</span>
+          </div>
+        </p-header>
+        
+        <div *ngFor="let question of questions">
+          <div [innerHTML]="question.statementQuestion"></div>
+          <br>
+          <div *ngIf="hasMultipleChoice(question.statements, question.number), else onlyChoice">
+            <div *ngFor="let sta of question.statements" [formGroup]="formResult">
+              <div [ngClass]="{'color-correct': sta.correct}">
+                <p-checkbox name="check" value="{{sta.item}}" label="{{sta.description}}" formControlName="result" inputId="{{sta.id}}"></p-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <ng-template #onlyChoice>
+            <div *ngFor="let sta of question.statements" [formGroup]="formResult">
+              <div [ngClass]="{'color-correct': sta.correct}">
+                <p-radioButton name="item" label="{{sta.description}}" value="{{sta.item}}" formControlName="result"></p-radioButton>
+              </div>
+            </div>
+          </ng-template>
+
+          <br>
+          <hr>
+          <br>
+        </div>
+
+        <p-footer>
+          <button type="button" pButton icon="pi pi-check" iconPos="left" label="Ok" style="margin-top: 10px"
+          [routerLink]="['/user/historic']"></button>
+        </p-footer>
+
+      </p-panel>
+
+    </form>
+  </div>
+</div>

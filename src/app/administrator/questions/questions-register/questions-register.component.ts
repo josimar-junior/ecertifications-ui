@@ -70,7 +70,12 @@ export class QuestionsRegisterComponent implements OnInit {
 
   addStatement() {
     const statement = new Statement(this.formStatement.value);
+    const staAux = this.statements.find(sta => sta.item == statement.item);
+    if(staAux) {
+      this.statements.splice(this.statements.indexOf(staAux), 1);  
+    }
     this.statements.push(statement);
+    this.statements.sort((x, y) => x.item < y.item ? -1 : 1);
   }
 
   editStatemet(statement: Statement) {
@@ -86,6 +91,7 @@ export class QuestionsRegisterComponent implements OnInit {
       .subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Salvo com sucesso!' });
         this.formQuestion.reset();
+        this.statements = [];
       });
   }
 }

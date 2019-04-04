@@ -14,10 +14,12 @@ import { CheckboxModule } from 'primeng/checkbox'
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DialogModule } from 'primeng/dialog';
 import { CoreModule } from '../core/core.module';
+import { ResultComponent } from './result/result.component';
 
 const ROUTES: Routes = [
   { path: 'quiz/:id', component: QuizComponent, canActivate: [AuthGuard] },
   { path: 'historic', component: HistoricComponent, canActivate: [AuthGuard] },
+  { path: 'result/:id/:idCertification', component: ResultComponent, canActivate: [AuthGuard] }
 ]
 
 @NgModule({
@@ -35,6 +37,6 @@ const ROUTES: Routes = [
     DialogModule,
     CoreModule
   ],
-  declarations: [QuizComponent, HistoricComponent]
+  declarations: [QuizComponent, HistoricComponent, ResultComponent]
 })
 export class UserModule { }

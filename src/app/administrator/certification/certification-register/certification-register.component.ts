@@ -82,7 +82,6 @@ export class CertificationRegisterComponent implements OnInit {
   }
 
   save() {
-    debugger
     this.formCertification.get('details').setValue(this.details);
 
     const certification = new Certification(this.formCertification.value);

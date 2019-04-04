@@ -45,7 +45,6 @@ export class QuizComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private router: Router,
     private userResponseService: UserResponseService) {
-    this.buildFormQuiz();
   }
 
   ngOnInit() {
@@ -53,13 +52,6 @@ export class QuizComponent implements OnInit {
     if (idCertification) {
       this.listQuestionsByIdCertification(idCertification);
     }
-  }
-
-  buildFormQuiz() {
-    this.formQuiz = this.formBuilder.group({
-      questao: [],
-      itens: []
-    });
   }
 
   listQuestionsByIdCertification(idCertification: number) {
@@ -140,8 +132,6 @@ export class QuizComponent implements OnInit {
     const time = this.timeRef.nativeElement.innerText.substring(7);
     let historic: Historic = new Historic(this.certification, time, this.percentage);
 
-    console.log(this.answers);
-
     let usersResponse: UserResponse[] = [];
 
     this.answers.forEach(ans => {
@@ -152,17 +142,14 @@ export class QuizComponent implements OnInit {
       userResponse.items = items;
       usersResponse.push(userResponse);
     });
-
-    console.log(usersResponse);
     
-    this.userResponseService.save(usersResponse).subscribe(() => {
-      console.log('OK');
-      
-    });
-    // this.historicService.save(historic)
-    //   .subscribe(() => {
-    //     this.openDialogResult = true;
-    //   });
+    this.historicService.save(historic)
+      .subscribe(his => {
+        usersResponse.forEach(user => user.historic = his);
+        this.userResponseService.save(usersResponse).subscribe(() => {
+          this.openDialogResult = true;
+        });
+      });
   }
 
   get approved(): boolean {
