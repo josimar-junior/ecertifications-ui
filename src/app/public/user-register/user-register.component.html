@@ -1,34 +1,39 @@
+<p-toast></p-toast>
 <div class="ui-g">
   <div class="ui-g-12">
-    <form>
+    <form [formGroup]="formUser">
       <p-panel header="Criar conta">
         <div class="ui-g">
           <div class="ui-g-4">
             <label class="required">Nome</label>
-            <input type="text" pInputText style="width: 100%" placeholder="Digite seu nome...">
+            <input type="text" pInputText style="width: 100%" placeholder="Digite seu nome..."
+            formControlName="name">
           </div>
 
           <div class="ui-g-4">
             <label class="required">E-mail</label>
-            <input type="text" pInputText style="width: 100%" placeholder="Digite seu e-mail...">
+            <input type="text" pInputText style="width: 100%" placeholder="Digite seu e-mail..."
+            formControlName="email">
           </div>
         </div>
 
         <div class="ui-g">
           <div class="ui-g-4">
             <label class="required">Senha</label>
-            <input type="text" pInputText style="width: 100%" placeholder="Digite seu senha...">
+            <input type="password" pPassword [feedback]="false" style="width: 100%" placeholder="Digite sua senha..."
+            formControlName="password">
           </div>
 
           <div class="ui-g-4">
             <label class="required">Confirmar senha</label>
-            <input type="text" pInputText style="width: 100%" placeholder="Confirme sua senha...">
+            <input type="password" pPassword [feedback]="false" style="width: 100%" placeholder="Confirme sua senha..."
+            formControlName="passwordConfirmation">
           </div>
         </div>
 
         <p-footer>
           <div class="ui-g">
-            <button pButton label="Salvar" icon="pi pi-save"></button>
+            <button pButton label="Salvar" icon="pi pi-save" (click)="save()" [disabled]="formUser.invalid"></button>
             <button pButton label="Retornar" icon="pi pi-arrow-left" style="margin-left: 8px"
             class="ui-button-warning" [routerLink]="['/login']"></button>
           </div>

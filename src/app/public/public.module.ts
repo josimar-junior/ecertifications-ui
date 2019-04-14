@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { PanelModule } from 'primeng/panel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { PasswordModule } from 'primeng/password';
 
 const ROUTES: Routes = [
   { path: '', component: UserRegisterComponent },
@@ -19,6 +20,7 @@ const ROUTES: Routes = [
     PanelModule,
     InputTextModule,
     ButtonModule,
+    PasswordModule
   ],
   declarations: [UserRegisterComponent]
 })
